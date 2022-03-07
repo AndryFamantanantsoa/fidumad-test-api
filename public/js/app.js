@@ -5386,6 +5386,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     getfilterdRib: function getfilterdRib() {
       var _this = this;
 
+      this.recette = 0;
+      this.depense = 0;
       var filterRib = this.valrib;
       var startDate = this.localizeDate(this.valdate1);
       var endDate = this.localizeDate(this.valdate2);
@@ -5399,7 +5401,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (startDate && endDate) {
           _this.classAttrib = "";
 
-          _this.calcTotal(rib.amount);
+          if (startDate <= itemDate && itemDate <= endDate) {
+            _this.calcTotal(rib.amount);
+          }
 
           return startDate <= itemDate && itemDate <= endDate;
         }
@@ -5407,7 +5411,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (startDate && !endDate) {
           _this.classAttrib = "";
 
-          _this.calcTotal(rib.amount);
+          if (startDate <= itemDate) {
+            _this.calcTotal(rib.amount);
+          }
 
           return startDate <= itemDate;
         }
@@ -5415,7 +5421,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (!startDate && endDate) {
           _this.classAttrib = "";
 
-          _this.calcTotal(rib.amount);
+          if (itemDate <= endDate) {
+            _this.calcTotal(rib.amount);
+          }
 
           return itemDate <= endDate;
         }

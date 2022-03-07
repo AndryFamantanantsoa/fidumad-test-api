@@ -115,7 +115,8 @@ export default {
 
         //retourne la liste par rapport aux critères
         getfilterdRib () {
-            
+            this.recette = 0
+            this.depense = 0
             let filterRib = this.valrib;
             let startDate = this.localizeDate(this.valdate1);
             let endDate = this.localizeDate(this.valdate2);
@@ -126,17 +127,26 @@ export default {
                 const itemDate = this.localizeDate(rib.date);
                 if (startDate && endDate) {
                     this.classAttrib = ""
-                    this.calcTotal(rib.amount)
+                    if (startDate <= itemDate && itemDate <= endDate)
+                    {
+                        this.calcTotal(rib.amount)
+                    }
                     return startDate <= itemDate && itemDate <= endDate;
                 }
                 if (startDate && !endDate) {
                     this.classAttrib = ""
-                    this.calcTotal(rib.amount)
+                    if (startDate <= itemDate)
+                    {
+                        this.calcTotal(rib.amount)
+                    }
                     return startDate <= itemDate;
                 }
                 if (!startDate && endDate) {
                     this.classAttrib = ""
-                    this.calcTotal(rib.amount)
+                    if (itemDate <= endDate)
+                    {
+                        this.calcTotal(rib.amount)
+                    }
                     return itemDate <= endDate;
                 }
                  this.classAttrib = "d-none"
